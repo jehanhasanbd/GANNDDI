@@ -1,0 +1,58 @@
+# Model Configuration
+model:
+  name: "GANNDDI"
+  version: "1.0.0"
+
+  # GaAN parameters - REDUCED
+  gaan:
+    num_layers: 2  # Reduced from 3
+    num_heads: 4   # Reduced from 8
+    hidden_dim: 64  # Reduced from 128
+    output_dim: 32  # Reduced from 64
+    dropout: 0.3
+    gate_dim: 4    # Reduced from 8
+
+  # GATE Encoder parameters - REDUCED
+  gate_encoder:
+    num_heads: 4
+    hidden_dim: 64  # Reduced from 128
+    num_layers: 1   # Reduced from 2
+    dropout: 0.1
+
+  # SIE Encoder parameters - REDUCED
+  sie_encoder:
+    num_patterns: 4  # Reduced from 8
+    hidden_dim: 64   # Reduced from 128
+    dropout: 0.3
+
+  # DDI Predictor - REDUCED
+  ddi_predictor:
+    hidden_dim: 64   # Reduced from 128
+    num_layers: 1    # Reduced from 2
+    dropout: 0.3
+
+# Data Configuration - Memory optimized
+data:
+  drugbank_path: "data/drugbank/"
+  batch_size: 4          # Very small batch
+  num_workers: 0         # No multiprocessing
+  max_atoms: 80          # Smaller molecules
+  max_mol_weight: 800    # Filter larger molecules
+  max_samples: 3000      # LIMIT dataset size
+
+# Training Configuration
+training:
+  epochs: 1
+  learning_rate: 1e-4
+  weight_decay: 1e-5
+  warmup_steps: 1000
+  gradient_clip: 1.0
+  early_stopping_patience: 10
+
+# Evaluation Configuration
+evaluation:
+  metrics: ["accuracy", "precision", "recall", "f1", "auroc", "auprc"]
+  test_split: 0.2
+  val_split: 0.1
+
+# Model parameters: 965,645 total, 965,645 trainable
