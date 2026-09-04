@@ -461,3 +461,290 @@ done
 | Docker | `docker build -t gannddi . && docker run --rm -it gannddi` |
 | GPU | `python scripts/train_model.py --gpu 0` |
 | WandB | `python scripts/train_model.py --wandb` |
+
+
+Here's the complete code structure tree for your GANNDDI project:
+
+
+
+```angular2html
+GANNDDI/
+│
+├── README.md
+├── requirements.txt
+├── setup.py
+├── .gitignore
+│
+├── config/
+│   ├── __init__.py
+│   ├── default.yaml
+│   └── model_config.py
+│
+├── data/
+│   ├── __init__.py
+│   ├── dataset.py
+│   ├── drugbank_loader.py
+│   ├── preprocessing.py
+│   └── molecular_graph.py
+│
+├── models/
+│   ├── __init__.py
+│   ├── ddi_predictor.py
+│   ├── gaan.py
+│   ├── gate_encoder.py
+│   ├── sie_encoder.py
+│   └── attention.py
+│
+├── modules/
+│   ├── __init__.py
+│   ├── layers.py
+│   ├── gates.py
+│   ├── multi_head_attention.py
+│   └── pooling.py
+│
+├── utils/
+│   ├── __init__.py
+│   ├── metrics.py
+│   ├── visualization.py
+│   ├── chem_utils.py
+│   └── data_utils.py
+│
+├── training/
+│   ├── __init__.py
+│   ├── trainer.py
+│   ├── evaluator.py
+│   └── loss_functions.py
+│
+├── experiments/
+│   ├── __init__.py
+│   ├── run_experiment.py
+│   └── hyperparameter_tuning.py
+│
+├── scripts/
+│   ├── download_data.sh
+│   ├── preprocess_drugbank.py
+│   ├── train_model.py
+│   ├── evaluate_model.py
+│   ├── inference.py
+│   ├── create_multiclass_data.py
+│   ├── add_negative_samples.py
+│   ├── check_interaction_types.py
+│   └── run_pipeline.sh
+│
+├── notebooks/
+│   ├── eda.ipynb
+│   └── visualization_demo.ipynb
+│
+├── tests/
+│   ├── __init__.py
+│   ├── test_models.py
+│   ├── test_data.py
+│   ├── test_utils.py
+│   └── test_training.py
+│
+├── checkpoints/
+│   ├── best_model.pt
+│   ├── final_model.pt
+│   ├── training_history.json
+│   └── test_results.json
+│
+├── evaluation/
+│   ├── metrics_test.json
+│   ├── predictions_test.csv
+│   ├── classification_report_test.txt
+│   └── confusion_matrix_test.png
+│
+├── data/
+│   ├── drugbank/
+│   │   ├── drug_links.csv
+│   │   ├── drugbank_vocabulary.csv
+│   │   ├── drugbank_all_structures.sdf
+│   │   ├── drugbank_all_target_polypeptide_sequences.fasta
+│   │   ├── drugbank_all_target_polypeptide_ids_all.csv
+│   │   ├── drugbank_all_target_polypeptide_ids_pharmacologically_active.csv
+│   │   ├── drugbank_all_drug_sequences.fasta
+│   │   └── ddi_data.csv
+│   │
+│   └── preprocessed/
+│       ├── train.csv
+│       ├── val.csv
+│       ├── test.csv
+│       ├── drug_smiles.json
+│       ├── drug_info.json
+│       ├── label_map.json
+│       └── stats.json
+│
+├── logs/
+│   └── training.log
+│
+├── Dockerfile
+├── docker-compose.yml
+├── Makefile
+├── .pre-commit-config.yaml
+│
+└── .github/
+    └── workflows/
+        └── ci.yml
+```
+
+## Detailed Description of Each Directory
+
+### Root Directory
+| File | Purpose |
+|------|---------|
+| `README.md` | Project documentation and setup guide |
+| `requirements.txt` | Python dependencies |
+| `setup.py` | Package installation configuration |
+| `.gitignore` | Git ignore rules |
+| `Dockerfile` | Docker container configuration |
+| `docker-compose.yml` | Multi-container Docker setup |
+| `Makefile` | Common development commands |
+| `.pre-commit-config.yaml` | Pre-commit hooks for code quality |
+
+### config/
+| File | Purpose |
+|------|---------|
+| `__init__.py` | Config module initialization |
+| `default.yaml` | Default model and training configuration |
+| `model_config.py` | Configuration dataclasses and loading |
+
+### data/
+| File | Purpose |
+|------|---------|
+| `__init__.py` | Data module initialization |
+| `dataset.py` | PyTorch Dataset classes for DDI data |
+| `drugbank_loader.py` | Load and preprocess DrugBank data |
+| `preprocessing.py` | Data preprocessing utilities |
+| `molecular_graph.py` | Molecular graph representation from SMILES |
+
+### models/
+| File | Purpose |
+|------|---------|
+| `__init__.py` | Models module initialization |
+| `ddi_predictor.py` | Main DDI prediction model (combines GATE + SIE) |
+| `gaan.py` | Gated Attention Network implementation |
+| `gate_encoder.py` | GATE Encoder for drug interactions |
+| `sie_encoder.py` | SIE Encoder for similarity identification |
+| `attention.py` | Multi-head attention modules |
+
+### modules/
+| File | Purpose |
+|------|---------|
+| `__init__.py` | Modules initialization |
+| `layers.py` | Basic neural network layers |
+| `gates.py` | Gating mechanisms (GLU, Gated Attention, etc.) |
+| `multi_head_attention.py` | Multi-head attention variants |
+| `pooling.py` | Graph pooling operations |
+
+### utils/
+| File | Purpose |
+|------|---------|
+| `__init__.py` | Utils initialization |
+| `metrics.py` | Evaluation metrics (accuracy, F1, AUROC, etc.) |
+| `visualization.py` | Plotting and visualization utilities |
+| `chem_utils.py` | Chemistry utilities (SMILES validation, fingerprints) |
+| `data_utils.py` | General data utilities |
+
+### training/
+| File | Purpose |
+|------|---------|
+| `__init__.py` | Training module initialization |
+| `trainer.py` | Main training loop with early stopping |
+| `evaluator.py` | Model evaluation utilities |
+| `loss_functions.py` | Custom loss functions (Focal Loss, Label Smoothing, etc.) |
+
+### experiments/
+| File | Purpose |
+|------|---------|
+| `__init__.py` | Experiments initialization |
+| `run_experiment.py` | Run full experiments with logging |
+| `hyperparameter_tuning.py` | Optuna-based hyperparameter optimization |
+
+### scripts/
+| File | Purpose |
+|------|---------|
+| `download_data.sh` | Download DrugBank data files |
+| `preprocess_drugbank.py` | Preprocess DrugBank data |
+| `train_model.py` | Main training script |
+| `evaluate_model.py` | Evaluate trained models |
+| `inference.py` | Run inference on new drug pairs |
+| `create_multiclass_data.py` | Create multi-class dataset |
+| `add_negative_samples.py` | Add negative samples for binary classification |
+| `check_interaction_types.py` | Check available interaction types |
+| `run_pipeline.sh` | Run full pipeline (download → preprocess → train) |
+
+### notebooks/
+| File | Purpose |
+|------|---------|
+| `eda.ipynb` | Exploratory Data Analysis |
+| `visualization_demo.ipynb` | Visualization examples |
+
+### tests/
+| File | Purpose |
+|------|---------|
+| `__init__.py` | Tests initialization |
+| `test_models.py` | Model architecture tests |
+| `test_data.py` | Data loading and preprocessing tests |
+| `test_utils.py` | Utility function tests |
+| `test_training.py` | Training and evaluation tests |
+
+### data/drugbank/
+| File | Purpose |
+|------|---------|
+| `drug_links.csv` | Drug links and metadata |
+| `drugbank_vocabulary.csv` | Drug vocabulary |
+| `drugbank_all_structures.sdf` | Molecular structures (SDF format) |
+| `drugbank_all_target_polypeptide_sequences.fasta` | Target protein sequences |
+| `drugbank_all_target_polypeptide_ids_all.csv` | All target polypeptide IDs |
+| `drugbank_all_target_polypeptide_ids_pharmacologically_active.csv` | Active targets |
+| `drugbank_all_drug_sequences.fasta` | Drug sequences |
+| `ddi_data.csv` | Drug-drug interaction data |
+
+### data/preprocessed/
+| File | Purpose |
+|------|---------|
+| `train.csv` | Training dataset |
+| `val.csv` | Validation dataset |
+| `test.csv` | Test dataset |
+| `drug_smiles.json` | Drug ID to SMILES mapping |
+| `drug_info.json` | Drug metadata |
+| `label_map.json` | Label to class mapping |
+| `stats.json` | Dataset statistics |
+
+### checkpoints/
+| File | Purpose |
+|------|---------|
+| `best_model.pt` | Best performing model checkpoint |
+| `final_model.pt` | Final model checkpoint |
+| `training_history.json` | Training metrics history |
+| `test_results.json` | Test evaluation results |
+
+### evaluation/
+| File | Purpose |
+|------|---------|
+| `metrics_test.json` | Test metrics |
+| `predictions_test.csv` | Test predictions |
+| `classification_report_test.txt` | Classification report |
+| `confusion_matrix_test.png` | Confusion matrix visualization |
+
+### .github/workflows/
+| File | Purpose |
+|------|---------|
+| `ci.yml` | GitHub Actions CI/CD pipeline |
+
+## File Count Summary
+
+| Directory | Files |
+|-----------|-------|
+| config/ | 3 |
+| data/ | 5 |
+| models/ | 6 |
+| modules/ | 5 |
+| utils/ | 5 |
+| training/ | 4 |
+| experiments/ | 3 |
+| scripts/ | 9 |
+| notebooks/ | 2 |
+| tests/ | 5 |
+| Root | 8 |
+| **Total** | **~55 Python files** |
